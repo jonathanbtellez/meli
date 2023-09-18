@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rules\Password as PasswordRules;
 
 class UserRequest extends FormRequest
 {
@@ -11,7 +12,7 @@ class UserRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +23,16 @@ class UserRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'name' => ['required','string','min:3'],
+            'last_name' => ['required','string','min:3'],
+            'email' => ['required','email','unique:users,email'],
+            'password' => ['required','confirmed',PasswordRules::min(8)->letters()->symbols()->numbers()],
         ];
     }
+
+	public function messages(){
+		return [
+			'password' => 'must contain at least 8 characters and muts include letters, numbers, and symbols'
+		];
+	}
 }
