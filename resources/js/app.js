@@ -1,13 +1,13 @@
 import "./bootstrap";
-import { createApp } from "vue";
+import { createApp, defineAsyncComponent } from "vue";
 import vSelect from "vue-select";
 
 // Components ---------------------------------------------------
-// import TheBookList from './components/Books/TheBookList.vue'
+import NavBar from "./components/layout/NavBar.vue";
 
 const app = createApp({
   components: {
-    // TheBookList
+    NavBar,
   },
 });
 

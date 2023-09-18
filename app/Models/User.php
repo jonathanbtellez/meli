@@ -28,6 +28,13 @@ class User extends Authenticatable
 		'role'
     ];
 
+	protected $appends = ['full_name'];
+
+	public function getFullNameAttribute()
+	{
+		return "{$this->name} {$this->last_name}";
+	}
+
     /**
      * The attributes that should be hidden for serialization.
      *
