@@ -32,7 +32,7 @@ class UserRequest extends FormRequest
 
 	public function messages(){
 		return [
-			'password' => 'must contain at least 8 characters and muts include letters, numbers, and symbols'
+			'password' => 'Password must contain at least 8 characters and muts include letters, numbers, and symbols'
 		];
 	}
 }

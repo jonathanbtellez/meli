@@ -7,8 +7,8 @@
 				</a>
 			</div>
 			<div v-if="user" class="col-12 mb-2 col-md-4 mb-md-0">
-				<v-select :options="products" label="name" v-model="product" :reduce="product => product.id" placeholder="What are you looking for"
-					:clearable="false" ></v-select>
+				<v-select class="select" :options="products" label="name" v-model="product" :reduce="product => product.id"
+					placeholder="What are you looking for" :clearable="false"></v-select>
 			</div>
 			<div>
 				<button class="navbar-toggler" type="button" data-bs-toggle="collapse"
@@ -42,10 +42,10 @@
 								<div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
 									<!-- <a class="dropdown-item" href='logout' onclick="event.preventDefault();
 															 document.getElementById('logout-form').submit();">
-										{{ __('Logout') }}
+										{{ __('logout') }}
 									</a> -->
-									<a class="dropdown-item" @click="logOut">
-										Logout
+									<a class="dropdown-item" @click="logout">
+										logout
 									</a>
 
 									<!-- <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
@@ -61,7 +61,7 @@
 	</nav>
 </template>
 <script>
-import { ref, watch } from 'vue';
+import { computed, onMounted, ref, watch } from 'vue';
 export default {
 	props: ['user', 'products'],
 	setup(props) {
@@ -70,10 +70,11 @@ export default {
 
 		watch(product, (newValue, oldValue) => {
 			console.log(newValue);
+
 			//TODO: Redirect to product page
 		})
 
-		const logOut = async () => {
+		const logout = async () => {
 			try {
 				await axios.post('/logout', props.user)
 				window.location.href = '/login'
@@ -84,13 +85,8 @@ export default {
 
 		return {
 			product,
-			logOut,
+			logout,
 		}
 	}
 }
 </script>
-<style scope>
-	placeholder{
-		color: #000;
-	}
-</style>
