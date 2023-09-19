@@ -3,7 +3,7 @@
 		<div class="container">
 			<div>
 				<a class="navbar-brand" href='/'>
-					Meli
+					Meli | {{ title  ?? 'Buy now'}}
 				</a>
 			</div>
 			<div v-if="user" class="col-12 mb-2 col-md-4 mb-md-0">
@@ -61,9 +61,9 @@
 	</nav>
 </template>
 <script>
-import { computed, onMounted, ref, watch } from 'vue';
+import { ref, watch } from 'vue';
 export default {
-	props: ['user', 'products'],
+	props: ['user', 'products','title'],
 	setup(props) {
 
 		const product = ref({})
