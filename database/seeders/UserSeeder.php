@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Image;
 use App\Models\User;
 use Illuminate\Support\Str;
 use Illuminate\Database\Seeder;
@@ -25,5 +26,12 @@ class UserSeeder extends Seeder
 		]);
 
 		$user->save();
+
+		$users = User::get();
+
+		foreach ($users as $user) {
+			$image = new Image(['url'=>'/storage/images/users/default.png']);
+			$user->image()->save($image);
+		}
 	}
 }

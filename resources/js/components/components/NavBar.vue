@@ -3,7 +3,7 @@
 		<div class="container">
 			<div>
 				<a class="navbar-brand" href='/'>
-					Meli | {{ title  ?? 'Buy now'}}
+					Meli | {{ title ?? 'Buy now' }}
 				</a>
 			</div>
 			<div v-if="user" class="col-12 mb-2 col-md-4 mb-md-0">
@@ -35,22 +35,27 @@
 						</template>
 						<template v-else>
 							<li class="nav-item dropdown">
-								<a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
-									data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-									{{ user.full_name }}{{ ' ' }}
-								</a>
-								<div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-									<!-- <a class="dropdown-item" href='logout' onclick="event.preventDefault();
-															 document.getElementById('logout-form').submit();">
-										{{ __('logout') }}
-									</a> -->
-									<a class="dropdown-item" @click="logout">
-										logout
-									</a>
+								<div class="d-flex align-items-baseline">
+									<div class="image-container">
+										<img class="w-100" :src="user.image.url" alt="avatar">
+									</div>
+									<a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
+										data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+										{{ user.full_name }}{{ ' ' }}
+										<div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+											<!-- <a class="dropdown-item" href='logout' onclick="event.preventDefault();
+																 document.getElementById('logout-form').submit();">
+											{{ __('logout') }}
+										</a> -->
+											<a class="dropdown-item" @click="logout">
+												logout
+											</a>
 
-									<!-- <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-										@csrf
-									</form> -->
+											<!-- <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+											@csrf
+										</form> -->
+										</div>
+									</a>
 								</div>
 							</li>
 						</template>
@@ -63,9 +68,9 @@
 <script>
 import { ref, watch } from 'vue';
 export default {
-	props: ['user', 'products','title'],
+	props: ['user', 'products', 'title'],
 	setup(props) {
-
+		console.log(props.user);
 		const product = ref({})
 
 		const go_to_product = (id) => window.location.href = `/product/${id}`
@@ -89,3 +94,8 @@ export default {
 	}
 }
 </script>
+<style lang="scss" scoped>
+.image-container {
+	width: 3rem;
+}
+</style>
