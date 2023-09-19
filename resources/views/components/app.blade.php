@@ -8,7 +8,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>{{ env('APP_NAME') }} | {{ $title ?? 'Buy now' }} </title>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.bunny.net">
@@ -19,9 +19,9 @@
 </head>
 
 <body>
-
-    {{ $slot }}
-
+    <main id="app">
+        {{ $slot }}
+    </main>
 </body>
 
 </html>

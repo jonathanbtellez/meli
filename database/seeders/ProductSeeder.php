@@ -2,6 +2,8 @@
 
 namespace Database\Seeders;
 
+use App\Models\Image;
+use App\Models\Product;
 use Carbon\Carbon;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
@@ -304,5 +306,11 @@ class ProductSeeder extends Seeder
 			),
 		];
 		DB::table('products')->insert($products);
+
+		$products = Product::get();
+		foreach ($products as $product) {
+			$image = new Image(['url'=> '/storage/images/products/default.png']);
+			$product->image()->save($image);
+		}
     }
 }

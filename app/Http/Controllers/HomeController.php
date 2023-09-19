@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -17,6 +18,7 @@ class HomeController extends Controller
     {
 		$user = Auth::user();
 		$products = Product::get();
-        return view('home', compact('user','products'));
+		$categories = Category::get();
+        return view('home', compact('user','products','categories'));
     }
 }
