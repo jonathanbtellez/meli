@@ -17,7 +17,7 @@ class HomeController extends Controller
     public function index()
     {
 		$user = Auth::user();
-		$products = Product::get();
+		$products = Product::where('stock','>',0)->get();
 		$categories = Category::get();
         return view('home', compact('user','products','categories'));
     }

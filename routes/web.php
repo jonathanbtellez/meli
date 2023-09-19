@@ -20,6 +20,8 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/product/getByCategory/{user}', [ProductController::class, 'getByCategory']);
 Route::get('/category/get-products/{category}', [CategoryController::class, 'getProducts']);
+Route::get('/product/{product}', [ProductController::class, 'show']);
+
 
 
 Auth::routes();

@@ -20,7 +20,7 @@
 	}
 	@media (min-width: 992px){
 		.banner{
-			min-height: 400px;
+			min-height: 350px;
 		}
 	}
 	@media (min-width: 1024px){

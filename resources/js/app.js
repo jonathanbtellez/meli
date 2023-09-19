@@ -6,12 +6,14 @@ import vSelect from "vue-select";
 import NavBar from "./components/components/NavBar.vue";
 import HomeList from "./components/components/HomeList.vue";
 import CategoryProducts from "./components/category/CategoryProducts.vue";
+import ShowProduct from "./components/product/ShowProduct.vue";
 
 const app = createApp({
   components: {
     NavBar,
     HomeList,
     CategoryProducts,
+    ShowProduct,
   },
 });
 

@@ -68,10 +68,9 @@ export default {
 
 		const product = ref({})
 
+		const go_to_product = (id) => window.location.href = `/product/${id}`
 		watch(product, (newValue, oldValue) => {
-			console.log(newValue);
-
-			//TODO: Redirect to product page
+			go_to_product(newValue);
 		})
 
 		const logout = async () => {

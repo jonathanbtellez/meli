@@ -12,8 +12,9 @@ class CategoryController extends Controller
 	public function getProducts(Request $request,Category $category)
 	{
 		$user = Auth::user();
-		$products = Product::get();
-		$categories = Product::where('category_id', $category->id)->with('image')->get();
+		$products = Product::where('stock',">",0)->get();
+		$categories = Product::where('category_id',$category->id)->where('stock','>',0)->with('image')->get();
+
 		return view('category.get-products', compact('user', 'products', 'categories', 'category'));
 	}
 }

@@ -4,7 +4,7 @@
 	<section class="container">
 		<div v-for="{ id, name } in categories" :key="id">
 			<a @click="go_to_category(id)" class="fs-4 text-black link-secondary custom-link ms-3">{{ name }}</a>
-			<div class="d-flex flex-row flex-wrap justify-content-around">
+			<div class="d-flex flex-row flex-wrap justify-wrap">
 				<product-list :category="id" />
 			</div>
 
