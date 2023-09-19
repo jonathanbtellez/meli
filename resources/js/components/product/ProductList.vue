@@ -1,7 +1,7 @@
 <template >
-	<template v-if="is_loading">
+	<div class="w-100 my-5" v-if="is_loading">
 		<div class="loader"></div>
-	</template>
+	</div>
 	<template v-else>
 		<div v-for="product in products_by_category" :key="product.id" class="card-size">
 			<product-card :product="product"/>
@@ -53,6 +53,7 @@ export default {
   width: 15px;
   aspect-ratio: 1;
   position: relative;
+  left: 150px;
   animation: l9-0 1.5s infinite steps(2);
 }
 .loader::before,

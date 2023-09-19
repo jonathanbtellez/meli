@@ -9,7 +9,7 @@
 		<div class="card-footer">
 			<div class="d-flex justify-content-around">
 
-				<a v-if="!is_main" @click="go_to_product(product.id)" class="btn btn-secondary"><i class="fa-regular fa-eye"></i><span class="button-card-label">See more</span></a>
+				<a v-if="!is_main" @click="go_to_product(product.id)" class="btn btn-secondary"><i class="fa-regular fa-eye"></i><span class="button-card-label"> See more</span></a>
 				<button class="btn btn-primary"><i class="fa-solid fa-cart-shopping"></i><span class="button-card-label"> Add</span></button>
 			</div>
 		</div>
