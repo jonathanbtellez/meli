@@ -27,10 +27,10 @@
 						<!-- Authentication Links -->
 						<template v-if="!user">
 							<li class="nav-item me-2">
-								<a class="btn btn-primary" href='login'>Login</a>
+								<a class="btn btn-primary" href='/login'>Login</a>
 							</li>
 							<li class="nav-item">
-								<a class="btn btn-secondary" href='register'>Register</a>
+								<a class="btn btn-secondary" href='/register'>Register</a>
 							</li>
 						</template>
 						<template v-else>

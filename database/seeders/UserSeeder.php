@@ -18,7 +18,6 @@ class UserSeeder extends Seeder
 		$user =new User([
             'name' => 'Jonathan',
 			'last_name'=>'Tellez',
-			'role' => 'admin',
             'email' => 'jonathanbtellez@gmail.com',
             'email_verified_at' => now(),
             'password' => '12345678', // password
@@ -32,6 +31,11 @@ class UserSeeder extends Seeder
 		foreach ($users as $user) {
 			$image = new Image(['url'=>'/storage/images/users/default.png']);
 			$user->image()->save($image);
+			if($user->id % 2 === 0){
+				$user->assignRole('user');
+			}else{
+				$user->assignRole('admin');
+			}
 		}
 	}
 }
