@@ -1,0 +1,50 @@
+<template >
+	<div class="card mx-2 mb-4 d-flex">
+		<img :src="product.image.url" class="card-img-top" alt="Product image">
+		<div class="card-body">
+			<h5 class="card-title">{{ product.name }}</h5>
+			<p class="card-text">{{ is_main ? product.description : product.format_description }}</p>
+			<p class="card-text fw-bold fs-5">Price: <span class="fw-normal">{{ price(product.price) }}</span></p>
+		</div>
+		<div class="card-footer">
+			<div class="d-flex justify-content-around">
+
+				<button v-if="!is_main" @click="go_to_product(product.id)" class="btn btn-secondary"><i
+						class="fa-regular fa-eye"></i></button>
+				<button class="btn btn-primary" @click="handle_add_product(product.id)"><i
+						class="fa-solid fa-cart-shopping"></i>{{
+							is_main && ' Add shopping cart' }}</button>
+			</div>
+		</div>
+	</div>
+</template>
+<script>
+import useLocalStorage from "@/composables/useLocalStorage";
+import useShoppingCart from '@/composables/useShoppingCart';
+import { moneyFormat } from '@/helper';
+import { ref } from 'vue'
+export default {
+	props: ['product', 'is_main'],
+	setup(props) {
+		const { getStorage } = useLocalStorage();
+		const { add_product } = useShoppingCart()
+
+		const handle_add_product = (id) => {
+			const user_logged = getStorage('user')
+			if (!user_logged) {
+				window.location.href = '/login'
+				return
+			}
+			add_product(id, user_logged.id)
+		}
+
+		return {
+			price: (price) => moneyFormat(price),
+			go_to_product: (id) => window.location.href = `/product/${id}`,
+			handle_add_product
+		}
+
+		// TODO handle add car
+	}
+}
+</script>

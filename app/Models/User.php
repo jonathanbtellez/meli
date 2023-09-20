@@ -10,10 +10,11 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable, SoftDeletes;
+    use HasApiTokens, HasFactory, Notifiable, SoftDeletes, HasRoles;
 
     /**
      * The attributes that are mass assignable.
@@ -27,6 +28,13 @@ class User extends Authenticatable
         'password',
 		'role'
     ];
+
+	protected $appends = ['full_name'];
+
+	public function getFullNameAttribute()
+	{
+		return "{$this->name} {$this->last_name}";
+	}
 
     /**
      * The attributes that should be hidden for serialization.
@@ -50,7 +58,7 @@ class User extends Authenticatable
 
 	public function products()
 	{
-		return $this->belongsToMany(Product::class,'product_user','product_id','user_id')->withPivot('products_quantity');
+		return $this->belongsToMany(Product::class,'product_users','product_id','user_id')->withPivot('products_quantity');
 	}
 
 	public function image()
