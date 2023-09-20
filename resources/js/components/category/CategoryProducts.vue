@@ -11,13 +11,9 @@
 	</section>
 </template>
 <script>
-import NavBar from '../components/NavBar.vue'
-import MainBanner from '../components/MainBanner.vue'
 import ProductCard from '../product/ProductCard.vue';
 export default {
 	components: {
-		NavBar,
-		MainBanner,
 		ProductCard
 	},
 	props: ['user', 'products', 'categories', 'category'],

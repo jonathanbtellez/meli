@@ -6,7 +6,7 @@
 					Meli | {{ title ?? 'Buy now' }}
 				</a>
 			</div>
-			<div v-if="user" class="col-12 mb-2 col-md-4 mb-md-0">
+			<div class="col-12 mb-2 col-md-4 mb-md-0">
 				<v-select class="select" :options="products" label="name" v-model="product" :reduce="product => product.id"
 					placeholder="What are you looking for" :clearable="false"></v-select>
 			</div>
@@ -67,10 +67,12 @@
 </template>
 <script>
 import { ref, watch } from 'vue';
+import useLocalStorage from '@/composables/useLocalStorage'
 export default {
 	props: ['user', 'products', 'title'],
 	setup(props) {
-		console.log(props.user);
+
+		const {removeStorage} = useLocalStorage()
 		const product = ref({})
 
 		const go_to_product = (id) => window.location.href = `/product/${id}`
@@ -80,6 +82,8 @@ export default {
 
 		const logout = async () => {
 			try {
+				removeStorage('user')
+				removeStorage('car')
 				await axios.post('/logout', props.user)
 				window.location.href = '/login'
 			} catch (error) {

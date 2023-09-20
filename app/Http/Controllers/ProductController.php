@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Category;
 use App\Models\Product;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -25,6 +24,13 @@ class ProductController extends Controller
     }
 	public function getByCategory(Request $request, $id){
 		$products = Product::where('category_id',$id)->where('stock','>',0)->with('image')->get();
+		return response()->json([
+			'products' => $products
+		], 200);
+	}
+
+	public function getAll(){
+		$products = Product::where('stock','>',0)->with('image')->get();
 		return response()->json([
 			'products' => $products
 		], 200);

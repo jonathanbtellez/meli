@@ -1,5 +1,5 @@
 <template >
-	<div class="w-100 my-5" v-if="is_loading">
+	<div class="w-100" v-if="is_loading">
 		<div class="loader"></div>
 	</div>
 	<template v-else>
@@ -53,7 +53,7 @@ export default {
   width: 15px;
   aspect-ratio: 1;
   position: relative;
-  left: 150px;
+  left: 50%;
   animation: l9-0 1.5s infinite steps(2);
 }
 .loader::before,
