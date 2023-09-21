@@ -4,7 +4,7 @@
 		<div class="card-body">
 			<h5 class="card-title">{{ product.name }}</h5>
 			<p class="card-text">{{ is_main ? product.description : product.format_description }}</p>
-			<p class="card-text fw-bold fs-5">Price: <span class="fw-normal">{{ price(product.price) }}</span></p>
+			<p class="card-text fw-bold fs-6">Price: <span class="fw-normal">{{ price(product.price) }}</span></p>
 		</div>
 		<div class="card-footer">
 			<div class="d-flex justify-content-around">
@@ -21,14 +21,19 @@
 <script>
 import useLocalStorage from "@/composables/useLocalStorage";
 import useShoppingCart from '@/composables/useShoppingCart';
+import useToast from '@/composables/useToast';
 import { moneyFormat } from '@/helper';
-import { ref } from 'vue'
 export default {
 	props: ['product', 'is_main'],
 	setup(props) {
 		const { getStorage } = useLocalStorage();
 		const { add_product } = useShoppingCart()
+		const {openToast} = useToast()
 
+		/**
+		 * Check if the user exist, if the result is true add the product and a toast
+		 * @param {number} id
+		 */
 		const handle_add_product = (id) => {
 			const user_logged = getStorage('user')
 			if (!user_logged) {
@@ -36,6 +41,7 @@ export default {
 				return
 			}
 			add_product(id, user_logged.id)
+			openToast('You have added this product to shopping cart', 'success')
 		}
 
 		return {

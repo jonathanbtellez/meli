@@ -18,6 +18,15 @@
 // Vue select
 @import 'vue-select/dist/vue-select.css';
 
+// loader
+@import 'loader';
+
+// Card size
+@import 'card';
+
+// Toast message
+@import 'vue-toast-notification/dist/theme-bootstrap.css';
+
 body {
 	background-color: rgb(233, 233, 233) !important;
 }

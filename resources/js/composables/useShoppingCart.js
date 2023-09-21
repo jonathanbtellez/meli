@@ -3,6 +3,12 @@ import useLocalStorage from "@/composables/useLocalStorage";
 const useShoppingCart = () => {
   const { updateStorage, getStorage } = useLocalStorage();
 
+  /**
+   * Check is the product exist if not create a new register, if the product exist add one unit more and finally
+   * update the storage
+   * @param {number} product_id
+   * @param {number} user_id
+   */
   const add_product = (product_id, user_id) => {
     const list_added = getStorage("car");
 
@@ -32,6 +38,12 @@ const useShoppingCart = () => {
     updateStorage("car", list_updated);
   };
 
+  /**
+   * Delete one unit of the product selected and finally
+   * update the storage
+   * @param {number} product_id
+   * @param {number} user_id
+   */
   const remove_product = (product_id) => {
     const list_added = getStorage("car");
 
@@ -50,6 +62,10 @@ const useShoppingCart = () => {
     updateStorage("car", list_updated);
   };
 
+  /**
+   * Delete the item selected of the storage
+   * @param {number} product_id
+   */
   const delete_item = (product_id) => {
     const list_added = getStorage("car");
 

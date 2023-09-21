@@ -7,9 +7,10 @@
 			<a href="/" class="btn btn-secondary">Go home</a>
 		</div>
 		<div class="d-flex justify-content-center">
-			<product-card :product="product" :is_main="true" class="card-size"/>
+			<product-card :product="product" :is_main="true" class="card-size" />
 		</div>
 	</section>
+	<v-footer/>
 </template>
 <script>
 import ProductCard from '../product/ProductCard.vue';
@@ -23,17 +24,15 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-.custom-link {
-	text-decoration: none;
-}
-
 .card-size {
-	width: 100%;
+	width: 80%;
+	margin: auto;
 }
 
-@media (min-width: 991px) {
+@media(min-width: 1024px) {
 	.card-size {
-		width: 60%;
+		width: 65%;
 	}
 }
 </style>
+
