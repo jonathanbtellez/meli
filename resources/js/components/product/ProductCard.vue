@@ -37,7 +37,7 @@ export default {
 		const handle_add_product = (id) => {
 			const user_logged = getStorage('user')
 			if (!user_logged) {
-				window.location.href = '/login'
+				openToast('Please login to buy', 'warning')
 				return
 			}
 			add_product(id, user_logged.id)
