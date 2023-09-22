@@ -13,6 +13,7 @@ import Footer from "./components/components/Footer.vue";
 import ShowUser from "./components/user/ShowUser.vue";
 import VueError from "./components/errors/VueError.vue";
 import BackendError from "./components/errors/BackendError.vue";
+import ProductTable from "./components/product/ProductTable.vue";
 
 // Toast
 import ToastPlugin from "vue-toast-notification";
@@ -26,6 +27,7 @@ const app = createApp({
     VueError,
     ShoppingCar,
     Footer,
+    ProductTable,
   },
 });
 app.component("backend-error", BackendError);

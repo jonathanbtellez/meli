@@ -47,7 +47,10 @@
 											</a> -->
 									<template v-if="role === 'admin'">
 										<a href="/user" class="dropdown-item">
-											<i class="fa-solid fa-user"></i> User
+											<i class="fa-solid fa-user"></i> Users
+										</a>
+										<a href="/products" class="dropdown-item">
+											<i class="fa-solid fa-gamepad"></i> Products
 										</a>
 									</template>
 									<a href="/shopping" class="dropdown-item">

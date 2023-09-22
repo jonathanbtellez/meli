@@ -14,13 +14,15 @@ class Product extends Model
 {
 	use HasFactory, SoftDeletes;
 
-	protected $fileable = [
-		"name",
-		"description",
-		"stock",
-		"price",
-		"category_id"
-	];
+	// protected $fileable = [
+	// 	"name",
+	// 	"description",
+	// 	"stock",
+	// 	"price",
+	// 	"category_id"
+	// ];
+
+	protected $guarded = [];
 
 	protected $appends = ['format_description'];
 

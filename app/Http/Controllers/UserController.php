@@ -33,7 +33,7 @@ class UserController extends Controller
 
 	public function getAll()
 	{
-		$users = User::query()->with('roles')->get();
+		$users = User::query()->with('roles');
 		return DataTables::of($users)->toJson();
 	}
 

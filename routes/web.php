@@ -27,18 +27,28 @@ Route::get('/product/{product}', [ProductController::class, 'show']);
 
 
 Auth::routes();
-Route::group(['prefix'=> 'shopping', 'middleware' => ['role:user|admin'], 'controller' => ShoppingController::class], function(){
+Route::group(['prefix' => 'shopping', 'middleware' => ['role:user|admin'], 'controller' => ShoppingController::class], function () {
 	Route::get('/',  'index');
 	Route::post('/',  'store');
 });
 
-Route::group(['prefix'=> 'user', 'middleware' => ['role:admin'], 'controller' => UserController::class], function(){
-	Route::get('/',  'index');
-	Route::get('/get-all-dt',  'getAll');
-	Route::post('/',  'store');
-	Route::get('/{user}',  'show');
-	Route::post('/{user}',  'update');
-	Route::delete('/{user}',  'destroy');
+
+Route::group(['middleware' => ['role:admin']], function () {
+	Route::group(['prefix' => 'user', 'controller' => UserController::class], function () {
+		Route::get('/',  'index');
+		Route::get('/get-all-dt',  'getAll');
+		Route::post('/',  'store');
+		Route::get('/{user}',  'show');
+		Route::post('/{user}',  'update');
+		Route::delete('/{user}',  'destroy');
+	});
+
+	Route::group(['prefix' => 'products', 'middleware' => ['role:admin'], 'controller' => ProductController::class], function () {
+		Route::get('/',  'index');
+		Route::get('/get-all-dt',  'getAllDt');
+		Route::get('/{product}', 'edit');
+		Route::post('/{product}', 'update');
+		Route::delete('/{product}', 'destroy');
+	}
+);
 });
-
-

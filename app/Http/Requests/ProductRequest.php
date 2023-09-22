@@ -6,6 +6,14 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class ProductRequest extends FormRequest
 {
+	protected $rules = [
+		'name' => ['required','string','min:3'],
+		'description' => ['required','string','min:25'],
+		'stock' => ['required','integer'],
+		'price' => ['required','integer'],
+		'category_id' => ['required','integer'],
+		'file' => ['required','image'],
+	];
     /**
      * Determine if the user is authorized to make this request.
      */
@@ -21,12 +29,6 @@ class ProductRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
-            'name' => ['required','string','min:3'],
-            'description' => ['required','string','min:25'],
-            'stock' => ['required','number'],
-            'price' => ['required','number'],
-            'category_id' => ['required','number'],
-        ];
+        return $this->rules;
     }
 }
