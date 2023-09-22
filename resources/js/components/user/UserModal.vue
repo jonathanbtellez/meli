@@ -1,12 +1,13 @@
 <template >
 	<!-- Modal -->
-	<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+	<div class="modal fade" id="user_modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
 		aria-labelledby="staticBackdropLabel" aria-hidden="true">
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header">
 					<h1 class="modal-title fs-5" id="staticBackdropLabel">{{ is_created ? 'Create' : 'Edit' }} user</h1>
-					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					<button type="button" class="btn-close" @click="closeModal" aria-label="Close">
+					</button>
 				</div>
 
 				<!-- Errors -->
@@ -22,14 +23,14 @@
 						<!-- Load Image -->
 						<div class="col-12 mt-2">
 							<label for="image" class="form-label">Image</label>
-							<input type="file" :class="`form-control ${back_errors['image'] ? 'is-invalid' : ''}`"
+							<input type="file" :class="`form-control ${back_errors['file'] ? 'is-invalid' : ''}`"
 								id="image" accept="image/*" @change="preview_image">
-							<span class="invalid-feedback" v-if="back_errors['image']">
-								{{ back_errors['image'] }}
+							<span class="invalid-feedback" v-if="back_errors['file']">
+								{{ back_errors['file'] }}
 							</span>
 						</div>
 
-						<!-- last name -->
+						<!-- name -->
 						<div class="col-12 mt-2">
 							<label for="name">Name:</label>
 							<Field name="name" v-slot="{ errorMessage, field }" v-model="user.name">
@@ -53,20 +54,18 @@
 							</Field>
 						</div>
 
-						<!-- Author -->
-						<!-- <div class="col-12 mt-2">
-							<Field name="author" v-slot="{ errorMessage, field, valid }" v-model="author">
-								<label for="author">Autor</label>
-
-								<vue-select :options="authors_data" label="name" v-model="author"
-									:reduce="author => author.id" v-bind="field" placeholder="Seleccione autor"
-									:clearable="false"
-									:class="`${errorMessage || back_errors['author'] ? 'is-invalid' : ''}`">
-								</vue-select>
+						<!-- Role -->
+						<div class="col-12 mt-2">
+							<Field name="role" v-slot="{ errorMessage, field, valid }" v-model="role">
+								<label for="role">Role</label>
+								<v-select :options="roles_data" label="name" v-model="role" :reduce="role => role.name"
+									v-bind="field" placeholder="Choice a role" :clearable="false"
+									:class="`${errorMessage || back_errors['role'] ? 'is-invalid' : ''}`">
+								</v-select>
 								<span class="invalid-feedback" v-if="!valid">{{ errorMessage }}</span>
-								<span class="invalid-feedback" v-if="!valid">{{ back_errors['author'] }}</span>
+								<span class="invalid-feedback" v-if="!valid">{{ back_errors['role'] }}</span>
 							</Field>
-						</div> -->
+						</div>
 
 						<!-- email -->
 						<div class="col-12 mt-2">
@@ -92,23 +91,9 @@
 							</Field>
 						</div>
 
-						<!-- password  confirmation-->
-						<div class="col-12 mt-2">
-							<label for="password_confirmation">confirm your password_confirmation:</label>
-							<Field name="password_confirmation" v-slot="{ errorMessage, field }"
-								v-model="user.password_confirmation">
-								<input type="text" id="password_confirmation" v-model="user.password_confirmation"
-									:class="`form-control ${errorMessage || back_errors['password_confirmation'] ? 'is-invalid' : ''}`"
-									v-bind="field">
-								<span class="invalid-feedback">{{ errorMessage }}</span>
-								<span class="invalid-feedback">{{ back_errors['password_confirmation'] }}</span>
-							</Field>
-						</div>
-
 					</div>
 					<div class="modal-footer">
-						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-						<button type="submit" class="btn btn-primary">Save</button>
+						<button type="submit" class="btn btn-primary" :disabled="disable_button">Save</button>
 					</div>
 				</Form>
 			</div>
@@ -118,24 +103,32 @@
 <script>
 import { Field, Form, } from 'vee-validate'
 import * as yup from 'yup';
-import { computed, ref } from 'vue';
+import { computed, ref, getCurrentInstance, onMounted } from 'vue';
 import { handlerErrors } from '@/helper/Alerts.js'
+import useToast from '@/composables/useToast.js'
 export default {
 	components: {
 		Field, Form,
 	},
-	// props: ['user_data'],
+	props: ['roles_data', 'user_data'],
 	setup(props) {
+		const instance = getCurrentInstance();
 		const is_created = ref(true)
-		const image_preview = ref('/storage/images/users/default.png')
+		const image_preview = ref('')
 		const back_errors = ref({})
 		const image = ref(null)
 		const user = ref({})
+		const role = ref()
+		const disable_button = ref(false)
+		const closeModal = () => instance.parent.ctx.closeModal()
+
+		const { openFunctionToast } = useToast()
 
 		const schema = computed(() => {
 			return yup.object({
 				name: yup.string().required(),
 				last_name: yup.string().required(),
+				role: yup.string().required(),
 				email: yup.string().required().email(),
 				password: yup.string().required()
 			})
@@ -146,13 +139,49 @@ export default {
 			image_preview.value = URL.createObjectURL(image.value)
 		}
 
-		const create_user = () => {
-			// try {
-			console.log(user.value);
-			// } catch (error) {
-			// 	back_errors.value = await handlerErrors(error)
-			// }
+		const createFormData = (data) => {
+			const form_data = new FormData()
+
+			if (image.value) {
+				form_data.append('file', image.value, image.value.name)
+			}
+			for (const prop in data) {
+				form_data.append(prop, data[prop])
+			}
+			return form_data
 		}
+
+		const successResponse = () => {
+			disable_button.value = true
+			closeModal()
+			instance.parent.ctx.reloadState()
+		}
+
+		const create_user = async () => {
+			try {
+				user.value.role = role.value
+				user.value.password_confirmation = user.value.password
+				const userData = createFormData(user.value)
+
+				if (is_created.value) {
+					await axios.post('/user', userData)
+				} else {
+					await axios.post(`/user/${user.value.id}`, userData)
+				}
+				openFunctionToast('Register saved successful', 'success', successResponse())
+			} catch (error) {
+				back_errors.value = await handlerErrors(error)
+			}
+		}
+		const index = () => {
+			user.value = props.user_data ? props.user_data : {}
+			image_preview.value = props.user_data ? props.user_data.image.url : '/storage/images/users/default.png'
+			is_created.value = props.user_data ? false : true
+		}
+
+		onMounted(() => {
+			index();
+		})
 
 		return {
 			schema,
@@ -161,7 +190,10 @@ export default {
 			back_errors,
 			preview_image,
 			user,
-			create_user
+			create_user,
+			role,
+			disable_button,
+			closeModal
 		}
 	}
 

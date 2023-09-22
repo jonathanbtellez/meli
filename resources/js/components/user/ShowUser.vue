@@ -22,13 +22,14 @@
 			</div>
 		</div>
 		<div v-if="load_modal">
-			<user-modal />
+			<user-modal :roles_data="roles" :user_data="user_data" />
 		</div>
 	</section>
 	<v-footer />
 </template>
 <script>
-import { handlerErrors, successMessage, deleteMessage } from '@/helper/Alerts.js'
+import { handlerErrors, deleteMessage } from '@/helper/Alerts.js'
+import useToast from '@/composables/useToast.js'
 import useHandlerModal from '@/composables/useHandlerModal.js'
 import UserModal from './UserModal.vue'
 import { ref, onMounted } from 'vue'
@@ -36,13 +37,13 @@ export default {
 	components: {
 		UserModal
 	},
-	props: ['user', 'products'],
+	props: ['user', 'products', 'roles'],
 	setup(props) {
 		const table = ref(null)
 		const user_data = ref()
 
-		const { openModal, load_modal } = useHandlerModal()
-
+		const { openModal, load_modal, closeModal } = useHandlerModal()
+		const {openFunctionToast} = useToast()
 		onMounted(() => index());
 		const index = () => mountedTable()
 
@@ -65,14 +66,15 @@ export default {
 						orderable: false,
 						searchable: false,
 						render: (data, type, row, meta) => {
-							return `<div class="d-flex justify-content-center" data-role='actions'>
-		            <button onclick='event.preventDefault();' data-id='${row.id}' role='edit' class="btn btn-warning btn-sm">
-		              <i class='fas fa-pencil-alt' data-id='${row.id}' role='edit'></i>
+							return `
+							<div class="d-flex justify-content-center" data-role='actions'>
+		            			<button onclick='event.preventDefault();' data-id='${row.id}' role='edit' class="btn btn-warning btn-sm">
+		              				<i class='fas fa-pencil-alt' data-id='${row.id}' role='edit'></i>
 								</button>
-		            <button onclick='event.preventDefault();' data-id='${row.id}' role='delete' class="btn btn-danger btn-sm ms-1">
-		            	<i class='fas fa-trash-alt' data-id='${row.id}' role='delete'></i>
+		            			<button onclick='event.preventDefault();' data-id='${row.id}' role='delete' class="btn btn-danger btn-sm ms-1">
+		            				<i class='fas fa-trash-alt' data-id='${row.id}' role='delete'></i>
 								</button>
-		          </div>`
+		          			</div>`
 						}
 					}
 				]
@@ -81,7 +83,7 @@ export default {
 
 		const createUser = async () => {
 			user_data.value = null
-			await openModal('staticBackdrop')
+			await openModal('user_modal')
 		}
 
 		const handleAction = (event) => {
@@ -97,8 +99,8 @@ export default {
 		const editUser = async (id) => {
 			try {
 				const { data } = await axios.get(`/user/${id}`)
-				user_data.value = data.user
-				await openModal('user_model')
+				user_data.value = data
+				await openModal('user_modal')
 			} catch (error) {
 				await handlerErrors(error)
 			}
@@ -109,8 +111,7 @@ export default {
 			if (!await deleteMessage()) return
 			try {
 				await axios.delete(`/user/${id}`)
-				await successMessage({ is_delete: true })
-				reloadState()
+				await openFunctionToast('User delete successful', 'success', reloadState())
 			} catch (error) {
 				await handlerErrors(error)
 			}
@@ -126,7 +127,9 @@ export default {
 			user_data,
 			createUser,
 			handleAction,
-			load_modal
+			load_modal,
+			reloadState,
+			closeModal
 		}
 	}
 }

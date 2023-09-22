@@ -6,7 +6,6 @@
 <style lang="scss" scoped>
 .footer {
 	width: 100%;
-	background: white;
 	height: 100px;
 	display: grid;
 	align-content: center;
