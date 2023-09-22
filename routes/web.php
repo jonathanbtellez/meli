@@ -34,6 +34,8 @@ Route::group(['prefix'=> 'shopping', 'middleware' => ['role:user|admin'], 'contr
 
 Route::group(['prefix'=> 'user', 'middleware' => ['role:admin'], 'controller' => UserController::class], function(){
 	Route::get('/',  'index');
+	Route::get('/get-all-dt',  'getAll');
+
 });
 
 

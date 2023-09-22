@@ -31,8 +31,10 @@
 						</div>
 						<template v-else>
 							<li class="nav-item dropdown">
-								<a id="navbarDropdown" class="nav-link dropdown-toggle d-flex align-items-center justify-content-md-end" href="#"
-									role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+								<a id="navbarDropdown"
+									class="nav-link dropdown-toggle d-flex align-items-center justify-content-md-end"
+									href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true"
+									aria-expanded="false">
 									<div class="image-container">
 										<img class="w-100" :src="user.image.url" alt="avatar">
 									</div>
@@ -43,11 +45,16 @@
 												document.getElementById('logout-form').submit();">
 												{{ __('logout') }}
 											</a> -->
-									<a href="/shopping" class="dropdown-item" @click="go_to_shopping">
+									<template v-if="role === 'admin'">
+										<a href="/user" class="dropdown-item">
+											<i class="fa-solid fa-user"></i> User
+										</a>
+									</template>
+									<a href="/shopping" class="dropdown-item">
 										<i class="fa-solid fa-cart-shopping"></i> Shopping cart
 									</a>
 									<button type="button" class="dropdown-item" @click="logout">
-										logout
+										<i class="fa-solid fa-arrow-right-from-bracket"></i> logout
 									</button>
 
 									<!-- <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
@@ -68,9 +75,9 @@ import useLocalStorage from '@/composables/useLocalStorage'
 export default {
 	props: ['user', 'products', 'title'],
 	setup(props) {
-
 		const { removeStorage } = useLocalStorage()
 		const product = ref({})
+		const role = ref(props.user.roles[0].name);
 
 		const go_to_product = (id) => window.location.href = `/product/${id}`
 
@@ -94,6 +101,7 @@ export default {
 
 		return {
 			product,
+			role,
 			logout,
 		}
 	}

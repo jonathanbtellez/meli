@@ -12,6 +12,7 @@ import ShoppingCar from "./components/shopping/ShoppingCar.vue";
 import Footer from "./components/components/Footer.vue";
 import ShowUser from "./components/user/ShowUser.vue";
 import VueError from "./components/errors/VueError.vue";
+import BackendError from "./components/errors/BackendError.vue";
 
 // Toast
 import ToastPlugin from "vue-toast-notification";
@@ -27,6 +28,8 @@ const app = createApp({
     Footer,
   },
 });
+app.component("backend-error", BackendError);
+
 app.component("nav-bar", NavBar);
 app.component("main-banner", MainBanner);
 app.component("v-footer", Footer);

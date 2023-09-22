@@ -37,7 +37,7 @@ export default {
 				case 403:
 					error_data.value = {
 						name: 'Unauthorize',
-						message: 'Ops, you do not have permission to see this content please login or register',
+						message: 'Ops, you do not have permission to see this content',
 						icon: 'fa-solid fa-ban fa-3x'
 					}
 					break

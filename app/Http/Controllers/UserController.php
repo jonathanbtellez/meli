@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Yajra\DataTables\Facades\DataTables;
 
 class UserController extends Controller
 {
@@ -20,5 +21,11 @@ class UserController extends Controller
 
 		$products = Product::where('stock', '>', 0)->get();
 		return view('user.index', compact('user', 'products'));
+	}
+
+	public function getAll()
+	{
+		$users = User::query()->with('roles')->get();
+		return DataTables::of($users)->toJson();
 	}
 }

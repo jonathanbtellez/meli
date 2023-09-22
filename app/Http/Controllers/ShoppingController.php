@@ -15,7 +15,7 @@ class ShoppingController extends Controller
 	{
 		if (Auth::user()) {
 			$idUser = Auth::user()->id;
-			$user = User::where('id', $idUser)->with('image')->first();
+			$user = User::with('image','roles')->where('id', $idUser)->first();
 		} else {
 			$user = null;
 		}
