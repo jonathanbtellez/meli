@@ -7,32 +7,29 @@ use Illuminate\Validation\Rules\Password as PasswordRules;
 
 class UserRequest extends FormRequest
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     */
-    public function authorize(): bool
-    {
-        return true;
-    }
-
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array|string>
-     */
-    public function rules(): array
-    {
-        return [
-            'name' => ['required','string','min:3'],
-            'last_name' => ['required','string','min:3'],
-            'email' => ['required','email','unique:users,email'],
-            'password' => ['required','confirmed',PasswordRules::min(8)->letters()->symbols()->numbers()],
-        ];
-    }
-
-	public function messages(){
-		return [
-			'password' => 'Password must contain at least 8 characters and muts include letters, numbers, and symbols'
-		];
+	protected $rules = [
+		'name' => ['required', 'string', 'min:3'],
+		'last_name' => ['required', 'string', 'min:3'],
+		'email' => ['required', 'email', 'unique:users,email'],
+		'password' => ['required', 'confirmed'],
+		'file' => ['required','image',]
+	];
+	/**
+	 * Determine if the user is authorized to make this request.
+	 */
+	public function authorize(): bool
+	{
+		return true;
 	}
+
+	/**
+	 * Get the validation rules that apply to the request.
+	 *
+	 * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array|string>
+	 */
+	public function rules(): array
+	{
+		return $this->rules;
+	}
+
 }

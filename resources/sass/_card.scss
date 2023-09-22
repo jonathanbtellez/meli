@@ -1,0 +1,17 @@
+.card-size {
+	width: 80%;
+	margin: auto;
+}
+
+@media (min-width: 768px){
+	.card-size{
+		width:48%;
+	}
+}
+@media (min-width: 1024px){
+	.card-size{
+		width:20%;
+		margin: 0;
+	}
+}
+

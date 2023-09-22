@@ -4,6 +4,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ShoppingController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -26,6 +27,18 @@ Route::get('/product/{product}', [ProductController::class, 'show']);
 
 
 Auth::routes();
-Route::get('/shopping', [ShoppingController::class, 'index'])->middleware('role:user|admin');
-Route::post('/shopping', [ShoppingController::class, 'store'])->middleware('role:user|admin');
+Route::group(['prefix'=> 'shopping', 'middleware' => ['role:user|admin'], 'controller' => ShoppingController::class], function(){
+	Route::get('/',  'index');
+	Route::post('/',  'store');
+});
+
+Route::group(['prefix'=> 'user', 'middleware' => ['role:admin'], 'controller' => UserController::class], function(){
+	Route::get('/',  'index');
+	Route::get('/get-all-dt',  'getAll');
+	Route::post('/',  'store');
+	Route::get('/{user}',  'show');
+	Route::post('/{user}',  'update');
+	Route::delete('/{user}',  'destroy');
+});
+
 
