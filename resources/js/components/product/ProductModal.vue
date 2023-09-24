@@ -11,7 +11,7 @@
 				</div>
 
 				<!-- Errors -->
-				<!-- <backend-error :errors="back_errors" /> -->
+				<backend-error :errors="back_errors" />
 				<Form :validation-schema="schema" @submit="create_product">
 					<div class="modal-body">
 
@@ -130,6 +130,7 @@ export default {
 				description: yup.string().required(),
 				stock: yup.number().required(),
 				price: yup.number().positive().required(),
+				category: yup.string().required(),
 			})
 		})
 

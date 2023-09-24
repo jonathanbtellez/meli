@@ -8,7 +8,7 @@
 			<p class="card-text">{{ is_main ? product.description : product.format_description }}</p>
 			<p class="card-text fw-bold fs-6">Price: <span class="fw-normal">{{ price(product.price) }}</span></p>
 		</div>
-		<div class="card-footer">
+		<div class="p-2 bg-body-secondary">
 			<div class="d-flex justify-content-around">
 				<button v-if="!is_main" @click="go_to_product(product.id)" class="btn btn-secondary"><i
 						class="fa-regular fa-eye"></i></button>
