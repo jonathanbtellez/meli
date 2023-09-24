@@ -42,10 +42,13 @@ export default {
 		const category_data = ref()
 
 		const { openModal, load_modal, closeModal } = useHandlerModal()
-		const {openFunctionToast} = useToast()
+		const { openFunctionToast } = useToast()
 		onMounted(() => index());
 		const index = () => mountedTable()
 
+		/**
+ * Create a datatable show the info receive of the backend
+ */
 		const mountedTable = () => {
 			table.value = $('#category_table').DataTable({
 				destroy: true,
@@ -79,11 +82,18 @@ export default {
 			})
 		}
 
+		/**
+ * Open the modal component needed to create a new register
+ */
 		const createCategory = async () => {
 			category_data.value = null
 			await openModal('category_modal')
 		}
 
+		/**
+		 * Receive the event click in the data base and handle which action going to be dispatch
+		 * @param {*} event
+		 */
 		const handleAction = (event) => {
 			const button = event.target
 			const user_id = button.getAttribute('data-id')
@@ -94,6 +104,10 @@ export default {
 			}
 		}
 
+		/**
+ * Show the modal with the register obtain of the http request
+ * @param {*} event
+ */
 		const editCategory = async (id) => {
 			try {
 				const { data } = await axios.get(`/categories/${id}`)
@@ -104,7 +118,7 @@ export default {
 			}
 		}
 
-
+		// Send and http request to delete a register
 		const deleteCategory = async (id) => {
 			if (!await deleteMessage()) return
 			try {

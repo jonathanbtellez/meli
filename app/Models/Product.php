@@ -26,6 +26,9 @@ class Product extends Model
 
 	protected $appends = ['format_description'];
 
+	/**
+	 * Accessory method thar return the short description
+	 */
 	public function FormatDescription(): Attribute
 	{
 		return Attribute::make(

@@ -4,7 +4,7 @@
 	<section class="container">
 		<div v-for="{ id, name } in categories_data" :key="id">
 			<button @click="go_to_category(id)" class="fs-4 btn btn-outline-secondary btn-sm ms-3 ms-md-3 ms-lg-2 my-2 my-lg-0 mb-lg-2">{{ name }}</button>
-			<div class="w-100 d-md-flex flex-wrap m-md-0">
+			<div class="w-100 d-md-flex flex-wrap">
 				<product-list :category="id" />
 			</div>
 
@@ -37,6 +37,9 @@ export default {
 			filterCategoriesEmpties()
 		})
 
+		/**
+		 * Filter the categories with content to avoid render empty categories
+		 */
 		const filterCategoriesEmpties = () => {
 			categories_data.value = props.categories.filter(category => category.products.length > 0)
 			console.log('====================================');

@@ -43,10 +43,14 @@ export default {
 		const user_data = ref()
 
 		const { openModal, load_modal, closeModal } = useHandlerModal()
-		const {openFunctionToast} = useToast()
+		const { openFunctionToast } = useToast()
 		onMounted(() => index());
 		const index = () => mountedTable()
 
+
+		/**
+		 * Create a datatable show the info receive of the backend
+		 */
 		const mountedTable = () => {
 			table.value = $('#user_table').DataTable({
 				destroy: true,
@@ -81,11 +85,18 @@ export default {
 			})
 		}
 
+		/**
+ * Open the modal component needed to create a new register
+ */
 		const createUser = async () => {
 			user_data.value = null
 			await openModal('user_modal')
 		}
 
+				/**
+		 * Receive the event click in the data base and handle which action going to be dispatch
+		 * @param {*} event
+		 */
 		const handleAction = (event) => {
 			const button = event.target
 			const user_id = button.getAttribute('data-id')
@@ -96,6 +107,10 @@ export default {
 			}
 		}
 
+				/**
+ * Show the modal with the register obtain of the http request
+ * @param {*} event
+ */
 		const editUser = async (id) => {
 			try {
 				const { data } = await axios.get(`/user/${id}`)
@@ -107,6 +122,7 @@ export default {
 		}
 
 
+		// Send and http request to delete a register
 		const deleteUser = async (id) => {
 			if (!await deleteMessage()) return
 			try {

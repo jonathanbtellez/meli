@@ -3,7 +3,7 @@
 		<div class="loader"></div>
 	</div>
 	<template v-else>
-		<div v-for="product in products_by_category" :key="product.id" class="card-size my-3">
+		<div v-for="product in products_by_category" :key="product.id" class="card-size">
 			<product-card :product="product" />
 		</div>
 	</template>
