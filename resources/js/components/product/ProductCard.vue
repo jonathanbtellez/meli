@@ -1,17 +1,15 @@
 <template >
-	<div class="card mx-2 mb-4 d-flex">
-		<div class="image-container m-auto my-2 d-flex align-items-center">
-
-			<img :src="product.image.url" class="card-img-top w-100" alt="Product image">
+	<div class="card mx-2 mb-4 d-flex h-100 align-content-between">
+		<div class="m-auto my-2 d-flex align-items-center h-50">
+			<img :src="product.image.url" class="card-img-top" alt="Product image">
 		</div>
 		<div class="card-body">
-			<h5 class="card-title">{{ product.name }}</h5>
+			<h5 class="card-title fw-bold">{{ product.name }}</h5>
 			<p class="card-text">{{ is_main ? product.description : product.format_description }}</p>
 			<p class="card-text fw-bold fs-6">Price: <span class="fw-normal">{{ price(product.price) }}</span></p>
 		</div>
 		<div class="card-footer">
 			<div class="d-flex justify-content-around">
-
 				<button v-if="!is_main" @click="go_to_product(product.id)" class="btn btn-secondary"><i
 						class="fa-regular fa-eye"></i></button>
 				<button class="btn btn-primary" @click="handle_add_product(product.id)"><i
