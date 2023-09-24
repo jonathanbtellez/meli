@@ -13,29 +13,31 @@
 					</div>
 				</template>
 				<template v-else>
-					<div v-for="product in products_data" :key="product.id" class="bg-white border rounded mb-2">
-						<div class="w-full m-2 m-md-0 mt-md-1 me-md-1 text-end">
+					<div v-for="product in products_data" :key="product.id" class="bg-white border rounded mb-2 p-3">
+						<div class="w-full m-2 me-0 mt-0 text-end">
 							<button class="btn btn-danger btn-sm" @click="handle_delete(product.id)"><i
 									class="fa-solid fa-trash"></i></button>
 						</div>
-						<div class="d-md-flex flex-row justify-content-between align-items-center gap-2 px-3">
-							<div class="image-container pb-3">
+						<div class="row">
+							<div class="pb-3 col-md-4 d-flex align-items-center">
 								<img :src="product.image.url" alt="image product" class="w-100">
 							</div>
-							<div>
-								<h2 class="fw-bold fs-5">Name:
-									<span class="fw-normal">{{ product.name }}</span>
-								</h2>
-								<p class="fw-bold">Price:
-									<span class="fw-normal">{{ price(product.price) }}</span>
-								</p>
-							</div>
-							<div class="d-flex align-items-baseline justify-content-center">
-								<button class="btn btn-secondary btn-sm me-4" @click="handle_decrement(product.id)"><i
-										class="fa-solid fa-minus"></i></button>
-								<span class="fw-bold">{{ product.quantity }}</span>
-								<button class="btn btn-secondary btn-sm ms-4" @click="handle_increment(product.id)"><i
-										class="fa-solid fa-plus"></i></button>
+							<div class=" align-items-center col-md-8 d-md-flex justify-content-around">
+								<div>
+									<h2 class="fw-bold fs-5">Name:
+										<span class="fw-normal">{{ product.name }}</span>
+									</h2>
+									<p class="fw-bold">Price:
+										<span class="fw-normal">{{ price(product.price) }}</span>
+									</p>
+								</div>
+								<div class="d-flex align-items-baseline justify-content-center">
+									<button class="btn btn-secondary btn-sm me-4" @click="handle_decrement(product.id)"><i
+											class="fa-solid fa-minus"></i></button>
+									<span class="fw-bold">{{ product.quantity }}</span>
+									<button class="btn btn-secondary btn-sm ms-4" @click="handle_increment(product.id)"><i
+											class="fa-solid fa-plus"></i></button>
+								</div>
 							</div>
 						</div>
 					</div>
@@ -54,7 +56,7 @@
 			</div>
 		</div>
 	</section>
-	<v-footer/>
+	<v-footer />
 </template>
 <script>
 import ProductList from '../product/ProductList.vue';
@@ -165,21 +167,3 @@ export default {
 	}
 }
 </script>
-<style lang="scss" scoped>
-.image-container {
-	width: 40%;
-	margin: auto;
-}
-
-@media (min-width: 768px) {
-	.image-container {
-		width: 30%;
-	}
-}
-
-@media (min-width: 1024px) {
-	.image-container {
-		width: 20%;
-	}
-}
-</style>
