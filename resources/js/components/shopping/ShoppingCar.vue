@@ -18,7 +18,7 @@
 							<button class="btn btn-danger btn-sm" @click="handle_delete(product.id)"><i
 									class="fa-solid fa-trash"></i></button>
 						</div>
-						<div class="d-md-flex flex-row justify-content-between align-items-center gap-2 p-3">
+						<div class="d-md-flex flex-row justify-content-between align-items-center gap-2 px-3">
 							<div class="image-container pb-3">
 								<img :src="product.image.url" alt="image product" class="w-100">
 							</div>
@@ -54,6 +54,7 @@
 			</div>
 		</div>
 	</section>
+	<v-footer/>
 </template>
 <script>
 import ProductList from '../product/ProductList.vue';
@@ -176,9 +177,9 @@ export default {
 	}
 }
 
-@media (min-width: 1024) {
+@media (min-width: 1024px) {
 	.image-container {
-		width: 25%;
+		width: 20%;
 	}
 }
 </style>

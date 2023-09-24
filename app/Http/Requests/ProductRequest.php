@@ -9,7 +9,7 @@ class ProductRequest extends FormRequest
 	protected $rules = [
 		'name' => ['required','string','min:3'],
 		'description' => ['required','string','min:25'],
-		'stock' => ['required','integer'],
+		'stock' => ['required','gte:0'],
 		'price' => ['required','integer'],
 		'category_id' => ['required','integer'],
 		'file' => ['required','image'],

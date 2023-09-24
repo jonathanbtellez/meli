@@ -1,6 +1,9 @@
 <template >
 	<div class="card mx-2 mb-4 d-flex">
-		<img :src="product.image.url" class="card-img-top" alt="Product image">
+		<div class="image-container m-auto my-2 d-flex align-items-center">
+
+			<img :src="product.image.url" class="card-img-top w-100" alt="Product image">
+		</div>
 		<div class="card-body">
 			<h5 class="card-title">{{ product.name }}</h5>
 			<p class="card-text">{{ is_main ? product.description : product.format_description }}</p>
@@ -28,7 +31,7 @@ export default {
 	setup(props) {
 		const { getStorage } = useLocalStorage();
 		const { add_product } = useShoppingCart()
-		const {openToast} = useToast()
+		const { openToast } = useToast()
 
 		/**
 		 * Check if the user exist, if the result is true add the product and a toast

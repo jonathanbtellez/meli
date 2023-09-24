@@ -25,7 +25,8 @@ class HomeController extends Controller
 		}
 
 		$products = Product::where('stock', '>', 0)->get();
-		$categories = Category::get();
+		$categories = Category::with('products')->get();
+
 		return view('home', compact('user', 'products', 'categories'));
 	}
 }

@@ -52,6 +52,9 @@
 										<a href="/products" class="dropdown-item">
 											<i class="fa-solid fa-gamepad"></i> Products
 										</a>
+										<a href="/categories" class="dropdown-item">
+											<i class="fa-solid fa-palette"></i> Categories
+										</a>
 									</template>
 									<a href="/shopping" class="dropdown-item">
 										<i class="fa-solid fa-cart-shopping"></i> Shopping cart
