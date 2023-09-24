@@ -3,12 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
-use App\Models\Image;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use App\Http\Traits\UploadImage;
-use App\Http\Requests\UserRequest;
-use App\Http\Requests\UserUpdateRequest;
+use App\Http\Requests\User\UserRequest;
+use App\Http\Requests\User\UserUpdateRequest;
+use App\Http\Traits\UserInfo;
 use Illuminate\Support\Facades\DB;
 use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\Auth;
@@ -16,16 +16,10 @@ use Yajra\DataTables\Facades\DataTables;
 
 class UserController extends Controller
 {
-	use UploadImage;
+	use UploadImage, UserInfo;
 	public function index()
 	{
-		if (Auth::user()) {
-			$idUser = Auth::user()->id;
-			$user = User::with('image', 'roles')->where('id', $idUser)->first();
-		} else {
-			$user = null;
-		}
-
+		$user = $this->validateUser(Auth::user());
 		$products = Product::where('stock', '>', 0)->get();
 		$roles = Role::all();
 		return view('user.index', compact('user', 'products', 'roles'));

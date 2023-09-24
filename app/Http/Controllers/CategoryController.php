@@ -2,24 +2,20 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
 use App\Models\Product;
 use App\Models\Category;
 use Illuminate\Http\Request;
+use App\Http\Traits\UserInfo;
 use Illuminate\Support\Facades\Auth;
-use App\Http\Requests\CategoryRequest;
 use Yajra\DataTables\Facades\DataTables;
+use App\Http\Requests\Category\CategoryRequest;
 
 class CategoryController extends Controller
 {
+	use UserInfo;
 	public function getProducts(Request $request, Category $category)
 	{
-		if (Auth::user()) {
-			$idUser = Auth::user()->id;
-			$user = User::with('image', 'roles')->where('id', $idUser)->first();
-		} else {
-			$user = null;
-		}
+		$user = $this->validateUser(Auth::user());
 		$products = Product::where('stock', ">", 0)->get();
 		$categories = Product::where('category_id', $category->id)->where('stock', '>', 0)->with('image')->get();
 
@@ -29,13 +25,7 @@ class CategoryController extends Controller
 
 	public function index()
 	{
-		if (Auth::user()) {
-			$idUser = Auth::user()->id;
-			$user = User::with('image', 'roles')->where('id', $idUser)->first();
-		} else {
-			$user = null;
-		}
-
+		$user = $this->validateUser(Auth::user());
 		$products = Product::where('stock', '>', 0)->get();
 		return view('category.index', compact('user', 'products'));
 	}

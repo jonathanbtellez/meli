@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\ProductRequest;
-use App\Http\Requests\ProductUpdateRequest;
+use App\Http\Requests\Product\ProductRequest;
+use App\Http\Requests\Product\ProductUpdateRequest;
 use App\Http\Traits\UploadImage;
-use App\Models\User;
+use App\Http\Traits\UserInfo;
 use App\Models\Product;
 use App\Models\Category;
 use Illuminate\Http\Request;
@@ -15,19 +15,13 @@ use Yajra\DataTables\Facades\DataTables;
 
 class ProductController extends Controller
 {
-	use UploadImage;
+	use UploadImage, UserInfo;
 	public function index()
 	{
-		if (Auth::user()) {
-			$idUser = Auth::user()->id;
-			$user = User::with('image', 'roles')->where('id', $idUser)->first();
-		} else {
-			$user = null;
-		}
-
+		$user = $this->validateUser(Auth::user());
 		$categories = Category::get();
 		$products = Product::where('stock', '>', 0)->get();
-		return view('product.index', compact('user', 'products','categories'));
+		return view('product.index', compact('user', 'products', 'categories'));
 	}
 
 	public function store(ProductRequest $request)
@@ -85,12 +79,7 @@ class ProductController extends Controller
 
 	public function show(Request $request, Product $product)
 	{
-		if (Auth::user()) {
-			$idUser = Auth::user()->id;
-			$user = User::with('image', 'roles')->where('id', $idUser)->first();
-		} else {
-			$user = null;
-		}
+		$user = $this->validateUser(Auth::user());
 		$products = Product::where('stock', '>', 0)->get();
 		$product = Product::where('id', $product->id)->with('category', 'image')->first();
 		return view('product.show', compact('user', 'products', 'product'));

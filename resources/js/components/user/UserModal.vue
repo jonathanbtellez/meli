@@ -23,8 +23,8 @@
 						<!-- Load Image -->
 						<div class="col-12 mt-2">
 							<label for="image" class="form-label">Image</label>
-							<input type="file" :class="`form-control ${back_errors['file'] ? 'is-invalid' : ''}`"
-								id="image" accept="image/*" @change="preview_image">
+							<input type="file" :class="`form-control ${back_errors['file'] ? 'is-invalid' : ''}`" id="image"
+								accept="image/*" @change="preview_image">
 							<span class="invalid-feedback" v-if="back_errors['file']">
 								{{ back_errors['file'] }}
 							</span>
@@ -124,6 +124,9 @@ export default {
 
 		const { openFunctionToast } = useToast()
 
+		/**
+			* Yup validation
+			*/
 		const schema = computed(() => {
 			return yup.object({
 				name: yup.string().required(),
@@ -134,11 +137,17 @@ export default {
 			})
 		})
 
+		/**
+		 * Handle which image going to be render
+		 */
 		const preview_image = (event) => {
 			image.value = event.target.files[0]
 			image_preview.value = URL.createObjectURL(image.value)
 		}
 
+		/**
+ * Return a form dato to be sended to the backend
+ */
 		const createFormData = (data) => {
 			const form_data = new FormData()
 
@@ -151,12 +160,18 @@ export default {
 			return form_data
 		}
 
+		/**
+		 * handle a success response of the backend
+		 */
 		const successResponse = () => {
 			disable_button.value = true
 			closeModal()
 			instance.parent.ctx.reloadState()
 		}
 
+		/**
+ * Prepare the data and handle with action going to be dispatch update or create
+ */
 		const create_user = async () => {
 			try {
 				user.value.role = role.value
@@ -173,6 +188,10 @@ export default {
 				back_errors.value = await handlerErrors(error)
 			}
 		}
+
+		/**
+		 * Save the info that going to be render when the component is mounted
+		 */
 		const index = () => {
 			user.value = props.user_data ? props.user_data : {}
 			image_preview.value = props.user_data ? props.user_data.image.url : '/storage/images/users/default.png'

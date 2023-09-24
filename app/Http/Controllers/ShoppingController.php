@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Traits\UserInfo;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\ProductUser;
@@ -11,15 +12,10 @@ use Illuminate\Support\Facades\Auth;
 
 class ShoppingController extends Controller
 {
+	use UserInfo;
 	public function index()
 	{
-		if (Auth::user()) {
-			$idUser = Auth::user()->id;
-			$user = User::with('image','roles')->where('id', $idUser)->first();
-		} else {
-			$user = null;
-		}
-
+		$user = $this->validateUser(Auth::user());
 		$products = Product::where('stock', '>', 0)->with('image')->get();
 		return view('shopping.index', compact('user', 'products'));
 	}

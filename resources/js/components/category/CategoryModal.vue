@@ -58,18 +58,27 @@ export default {
 
 		const { openFunctionToast } = useToast()
 
+		/**
+		 * Yup validation
+		 */
 		const schema = computed(() => {
 			return yup.object({
 				name: yup.string().required(),
 			})
 		})
 
+		/**
+ * handle a success response of the backend
+ */
 		const successResponse = () => {
 			disable_button.value = true
 			closeModal()
 			instance.parent.ctx.reloadState()
 		}
 
+		/**
+		 * Prepare the data and handle with action going to be dispatch update or create
+		 */
 		const create_category = async () => {
 			try {
 				if (is_created.value) {
@@ -82,6 +91,9 @@ export default {
 				back_errors.value = await handlerErrors(error)
 			}
 		}
+		/**
+ * Save the info that going to be render when the component is mounted
+ */
 		const index = () => {
 			category.value = props.category_data ? props.category_data : {}
 			is_created.value = props.category_data ? false : true

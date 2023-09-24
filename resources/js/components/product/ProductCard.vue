@@ -1,5 +1,5 @@
 <template >
-	<div class="card mx-2 mb-4 d-flex h-100 align-content-between">
+	<div class="card d-flex h-100 mx-2">
 		<div class="m-auto my-2 d-flex align-items-center h-50">
 			<img :src="product.image.url" class="card-img-top" alt="Product image">
 		</div>

@@ -82,8 +82,9 @@
 						<div class="col-12 mt-2">
 							<Field name="category" v-slot="{ errorMessage, field, valid }" v-model="category">
 								<label for="category">category</label>
-								<v-select :options="categories_data" label="name" v-model="category" :reduce="category => category.id"
-									v-bind="field" placeholder="Choice a category" :clearable="false"
+								<v-select :options="categories_data" label="name" v-model="category"
+									:reduce="category => category.id" v-bind="field" placeholder="Choice a category"
+									:clearable="false"
 									:class="`${errorMessage || back_errors['category'] ? 'is-invalid' : ''}`">
 								</v-select>
 								<span class="invalid-feedback" v-if="!valid">{{ errorMessage }}</span>
@@ -124,6 +125,9 @@ export default {
 
 		const { openFunctionToast } = useToast()
 
+		/**
+			* Yup validation
+			*/
 		const schema = computed(() => {
 			return yup.object({
 				name: yup.string().required(),
@@ -134,11 +138,17 @@ export default {
 			})
 		})
 
+		/**
+ * Handle which image going to be render
+ */
 		const preview_image = (event) => {
 			image.value = event.target.files[0]
 			image_preview.value = URL.createObjectURL(image.value)
 		}
 
+		/**
+		 * Return a form dato to be sended to the backend
+		 */
 		const createFormData = (data) => {
 			const form_data = new FormData()
 
@@ -151,12 +161,18 @@ export default {
 			return form_data
 		}
 
+		/**
+ * handle a success response of the backend
+ */
 		const successResponse = () => {
 			disable_button.value = true
 			closeModal()
 			instance.parent.ctx.reloadState()
 		}
 
+		/**
+ * Prepare the data and handle with action going to be dispatch update or create
+ */
 		const create_product = async () => {
 			try {
 				product.value.category_id = category.value
@@ -171,6 +187,9 @@ export default {
 				back_errors.value = await handlerErrors(error)
 			}
 		}
+		/**
+ * Save the info that going to be render when the component is mounted
+ */
 		const index = () => {
 			product.value = props.product_data ? props.product_data : {}
 			image_preview.value = props.product_data ? props.product_data.image.url : '/storage/images/products/default.png'

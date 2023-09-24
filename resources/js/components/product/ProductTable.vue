@@ -50,6 +50,9 @@ export default {
 		onMounted(() => index());
 		const index = () => mountedTable()
 
+		/**
+ * Create a datatable show the info receive of the backend
+ */
 		const mountedTable = () => {
 			table.value = $('#product_table').DataTable({
 				destroy: true,
@@ -90,11 +93,18 @@ export default {
 			})
 		}
 
+		/**
+		 * Open the modal component needed to create a new register
+		 */
 		const createProduct = async () => {
 			product_data.value = null
 			await openModal('product_modal')
 		}
-		
+
+		/**
+ * Receive the event click in the data base and handle which action going to be dispatch
+ * @param {*} event
+ */
 		const handleAction = (event) => {
 			const button = event.target
 			const user_id = button.getAttribute('data-id')
@@ -108,11 +118,12 @@ export default {
 				seeProduct(user_id);
 			}
 		}
-		
+
 		const seeProduct = (id) => {
 			window.open(`/product/${id}`)
 		}
 
+		// Send and http request to delete a register
 		const editUser = async (id) => {
 			try {
 				const { data } = await axios.get(`/products/${id}`)

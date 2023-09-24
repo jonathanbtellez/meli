@@ -30,6 +30,9 @@ class User extends Authenticatable
 
 	protected $appends = ['full_name'];
 
+	/**
+	 * Accessory method that return the full name in consults
+	 */
 	public function getFullNameAttribute()
 	{
 		return "{$this->name} {$this->last_name}";

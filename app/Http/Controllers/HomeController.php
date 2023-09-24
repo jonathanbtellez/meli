@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Traits\UserInfo;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\User;
@@ -10,6 +11,7 @@ use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
+	use UserInfo;
 	/**
 	 * Show the application dashboard.
 	 *
@@ -17,13 +19,7 @@ class HomeController extends Controller
 	 */
 	public function index()
 	{
-		if (Auth::user()) {
-			$idUser = Auth::user()->id;
-			$user = User::with('image','roles')->where('id', $idUser)->first();
-		} else {
-			$user = null;
-		}
-
+		$user = $this->validateUser(Auth::user());
 		$products = Product::where('stock', '>', 0)->get();
 		$categories = Category::with('products')->get();
 
