@@ -2,9 +2,9 @@
 
 namespace App\Http\Traits;
 
-use App\Models\Product;
 use App\Models\User;
 use App\Models\Image;
+use App\Models\Product;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\File as FileSystem;
 

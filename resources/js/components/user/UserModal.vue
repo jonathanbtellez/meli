@@ -11,7 +11,7 @@
 				</div>
 
 				<!-- Errors -->
-				<!-- <backend-error :errors="back_errors" /> -->
+				<backend-error :errors="back_errors" />
 				<Form :validation-schema="schema" @submit="create_user">
 					<div class="modal-body">
 

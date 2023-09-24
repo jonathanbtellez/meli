@@ -74,7 +74,7 @@ class ProductController extends Controller
 	public function destroy(Request $request, Product $product)
 	{
 		$product->delete();
-		return response()->json(['message' => 'the product was updated'], 204);
+		return response()->json(['message' => 'the product was delete'], 204);
 	}
 
 	public function getAllDt()

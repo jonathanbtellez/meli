@@ -28,7 +28,7 @@ export default {
 	setup(props) {
 		const { getStorage } = useLocalStorage();
 		const { add_product } = useShoppingCart()
-		const {openToast} = useToast()
+		const { openToast } = useToast()
 
 		/**
 		 * Check if the user exist, if the result is true add the product and a toast

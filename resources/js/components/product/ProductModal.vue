@@ -128,7 +128,7 @@ export default {
 			return yup.object({
 				name: yup.string().required(),
 				description: yup.string().required(),
-				stock: yup.number().positive().required(),
+				stock: yup.number().required(),
 				price: yup.number().positive().required(),
 			})
 		})

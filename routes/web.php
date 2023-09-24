@@ -43,12 +43,27 @@ Route::group(['middleware' => ['role:admin']], function () {
 		Route::delete('/{user}',  'destroy');
 	});
 
-	Route::group(['prefix' => 'products', 'middleware' => ['role:admin'], 'controller' => ProductController::class], function () {
-		Route::get('/',  'index');
-		Route::get('/get-all-dt',  'getAllDt');
-		Route::get('/{product}', 'edit');
-		Route::post('/{product}', 'update');
-		Route::delete('/{product}', 'destroy');
-	}
-);
+	Route::group(
+		['prefix' => 'products', 'middleware' => ['role:admin'], 'controller' => ProductController::class],
+		function () {
+			Route::get('/',  'index');
+			Route::get('/get-all-dt',  'getAllDt');
+			Route::post('/',  'store');
+			Route::get('/{product}', 'edit');
+			Route::post('/{product}', 'update');
+			Route::delete('/{product}', 'destroy');
+		}
+	);
+
+	Route::group(
+		['prefix' => 'categories', 'middleware' => ['role:admin'], 'controller' => CategoryController::class],
+		function () {
+			Route::get('/',  'index');
+			Route::get('/get-all-dt',  'getAllDt');
+			Route::post('/',  'store');
+			Route::get('/{category}', 'edit');
+			Route::put('/{category}', 'update');
+			Route::delete('/{category}', 'destroy');
+		}
+	);
 });
