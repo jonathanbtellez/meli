@@ -49,14 +49,16 @@ export default {
 	},
 	props: ['roles_data', 'category_data'],
 	setup(props) {
-		const instance = getCurrentInstance();
-		const is_created = ref(true)
-		const back_errors = ref({})
-		const category = ref({})
-		const disable_button = ref(false)
-		const closeModal = () => instance.parent.ctx.closeModal()
 
 		const { openFunctionToast } = useToast()
+
+		const back_errors = ref({})
+		const category = ref({})
+		const closeModal = () => instance.parent.ctx.closeModal()
+		const disable_button = ref(false)
+		const instance = getCurrentInstance();
+		const is_created = ref(true)
+
 
 		/**
 		 * Yup validation
@@ -104,13 +106,13 @@ export default {
 		})
 
 		return {
-			schema,
-			is_created,
 			back_errors,
 			category,
+			closeModal,
 			create_category,
 			disable_button,
-			closeModal
+			is_created,
+			schema,
 		}
 	}
 

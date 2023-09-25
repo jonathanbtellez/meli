@@ -46,9 +46,10 @@ export default {
 		}
 
 		return {
-			price: (price) => moneyFormat(price),
+			handle_add_product,
+
 			go_to_product: (id) => window.location.href = `/product/${id}`,
-			handle_add_product
+			price: (price) => moneyFormat(price),
 		}
 
 		// TODO handle add car

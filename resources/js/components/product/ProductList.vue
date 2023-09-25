@@ -40,8 +40,8 @@ export default {
 		})
 
 		return {
+			is_loading,
 			products_by_category,
-			is_loading
 		}
 	}
 }

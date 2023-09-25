@@ -113,6 +113,8 @@ export default {
 	},
 	props: ['categories_data', 'product_data'],
 	setup(props) {
+		const { openFunctionToast } = useToast()
+
 		const instance = getCurrentInstance();
 		const is_created = ref(true)
 		const image_preview = ref('')
@@ -122,8 +124,6 @@ export default {
 		const category = ref()
 		const disable_button = ref(false)
 		const closeModal = () => instance.parent.ctx.closeModal()
-
-		const { openFunctionToast } = useToast()
 
 		/**
 			* Yup validation
@@ -199,21 +199,18 @@ export default {
 		onMounted(() => {
 			index();
 		})
-
 		return {
-			schema,
+			back_errors,
+			category,
+			closeModal,
+			create_product,
+			disable_button,
 			image_preview,
 			is_created,
-			back_errors,
 			preview_image,
 			product,
-			create_product,
-			category,
-			disable_button,
-			closeModal
+			schema,
 		}
 	}
-
 }
 </script>
-<style ></style>
