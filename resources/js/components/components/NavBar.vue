@@ -82,16 +82,12 @@ export default {
 	props: ['user', 'products', 'title'],
 	setup(props) {
 		const { removeStorage } = useLocalStorage()
+
 		const product = ref({})
 		const role = ref();
 
 		const go_to_product = (id) => window.location.href = `/product/${id}`
 
-		onMounted(()=>{
-			if(props.user){
-				role.value = props.user.roles[0].name
-			}
-		})
 
 		watch(product, (newValue) => {
 			go_to_product(newValue);
@@ -111,10 +107,16 @@ export default {
 			}
 		}
 
+		onMounted(()=>{
+			if(props.user){
+				role.value = props.user.roles[0].name
+			}
+		})
+
 		return {
+			logout,
 			product,
 			role,
-			logout,
 		}
 	}
 }

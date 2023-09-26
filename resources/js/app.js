@@ -21,19 +21,18 @@ import ToastPlugin from "vue-toast-notification";
 
 const app = createApp({
   components: {
-    ShowUser,
-    HomeList,
     CategoryProducts,
-    ShowProduct,
-    VueError,
-    ShoppingCar,
     Footer,
+    HomeList,
     ProductTable,
+    ShoppingCar,
     ShowCategory,
+    ShowProduct,
+    ShowUser,
+    VueError,
   },
 });
 app.component("backend-error", BackendError);
-
 app.component("nav-bar", NavBar);
 app.component("main-banner", MainBanner);
 app.component("v-footer", Footer);

@@ -154,15 +154,14 @@ export default {
 
 
 		return {
-			price: (price) => moneyFormat(price),
-			products_quantity,
-			products_data,
-			total,
-			go_to_category: (id) => window.location.href = `/category/get-products/${id}`,
-			handle_increment,
+			handle_buy,
 			handle_decrement,
 			handle_delete,
-			handle_buy
+			handle_increment,
+			price: (price) => moneyFormat(price),
+			products_data,
+			products_quantity,
+			total,
 		}
 	}
 }

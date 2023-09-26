@@ -3,14 +3,19 @@
 	<main-banner />
 	<section class="container">
 		<div v-for="{ id, name } in categories_data" :key="id">
-			<button @click="go_to_category(id)" class="fs-4 btn btn-outline-secondary btn-sm ms-3 ms-md-3 ms-lg-2 my-2 my-lg-0 mb-lg-2">{{ name }}</button>
+			<div class="d-flex justify-content-between align-items-baseline mx-3 mt-3">
+				<p
+					class="fs-4">{{ name }}</p>
+					<a :href="'/category/get-products/'+id"
+					class="fs-4 pe-auto link-underline link-underline-opacity-0">Ver mas <i class="fa-solid fa-arrow-right"></i></a>
+			</div>
 			<div class="w-100 d-md-flex flex-wrap">
 				<product-list :category="id" />
 			</div>
 
 		</div>
 	</section>
-	<v-footer/>
+	<v-footer />
 </template>
 <script>
 import { onMounted, ref } from 'vue';
@@ -22,8 +27,11 @@ export default {
 	},
 	props: ['user', 'products', 'categories'],
 	setup(props) {
+
 		const { updateStorage } = useLocalStorage()
+
 		const categories_data = ref();
+
 		/**
 		 * Save the user info in the storage to be use for save purchases
 		 */
@@ -32,26 +40,22 @@ export default {
 			updateStorage('user', { id: user.id })
 		}
 
-		onMounted(() => {
-			saveUserInfo(props.user)
-			filterCategoriesEmpties()
-		})
 
 		/**
 		 * Filter the categories with content to avoid render empty categories
 		 */
 		const filterCategoriesEmpties = () => {
 			categories_data.value = props.categories.filter(category => category.products.length > 0)
-			console.log('====================================');
-			console.log(categories_data.value);
-			console.log('====================================');
 		}
 
+		onMounted(() => {
+			saveUserInfo(props.user)
+			filterCategoriesEmpties()
+		})
+
 		return {
-			go_to_category: (id) => window.location.href = `/category/get-products/${id}`,
-			categories_data
+			categories_data,
 		}
 	}
 }
 </script>
-

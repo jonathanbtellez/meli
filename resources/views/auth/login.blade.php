@@ -1,6 +1,6 @@
-<x-app>
+<x-app title="Login">
 	<div id="app">
-		<nav-bar />
+		<nav-bar title="Login" :products="{{$products}}"/>
 	</div>
 	<div class="container my-3">
         <div class="row justify-content-center">

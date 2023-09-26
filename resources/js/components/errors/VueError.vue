@@ -77,9 +77,9 @@ export default {
 		})
 
 		return {
-			products_data,
+			error_data,
 			is_loading,
-			error_data
+			products_data,
 		}
 	}
 }

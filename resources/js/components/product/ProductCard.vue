@@ -10,8 +10,8 @@
 		</div>
 		<div class="p-2 bg-body-secondary">
 			<div class="d-flex justify-content-around">
-				<button v-if="!is_main" @click="go_to_product(product.id)" class="btn btn-secondary"><i
-						class="fa-regular fa-eye"></i></button>
+				<a v-if="!is_main" :href="'/product/'+product.id" class="btn btn-secondary"><i
+						class="fa-regular fa-eye"></i></a>
 				<button class="btn btn-primary" @click="handle_add_product(product.id)"><i
 						class="fa-solid fa-cart-shopping"></i>{{
 							is_main && ' Add shopping cart' }}</button>
@@ -46,12 +46,10 @@ export default {
 		}
 
 		return {
+			handle_add_product,
 			price: (price) => moneyFormat(price),
-			go_to_product: (id) => window.location.href = `/product/${id}`,
-			handle_add_product
 		}
 
-		// TODO handle add car
 	}
 }
 </script>

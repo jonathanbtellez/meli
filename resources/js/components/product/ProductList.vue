@@ -3,7 +3,7 @@
 		<div class="loader"></div>
 	</div>
 	<template v-else>
-		<div v-for="product in products_by_category" :key="product.id" class="card-size">
+		<div v-for="product in products_by_category" :key="product.id" class="card-size mb-3">
 			<product-card :product="product" />
 		</div>
 	</template>
@@ -40,8 +40,8 @@ export default {
 		})
 
 		return {
+			is_loading,
 			products_by_category,
-			is_loading
 		}
 	}
 }

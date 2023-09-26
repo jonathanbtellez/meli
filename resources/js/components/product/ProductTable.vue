@@ -42,12 +42,13 @@ export default {
 	},
 	props: ['user', 'products', 'categories'],
 	setup(props) {
-		const table = ref(null)
-		const product_data = ref()
 
 		const { openModal, load_modal, closeModal } = useHandlerModal()
 		const { openFunctionToast } = useToast()
-		onMounted(() => index());
+
+		const table = ref(null)
+		const product_data = ref()
+
 		const index = () => mountedTable()
 
 		/**
@@ -150,6 +151,7 @@ export default {
 			index()
 		}
 
+		onMounted(() => index());
 		// index()
 		return {
 			product_data,
