@@ -19,7 +19,7 @@ class UserController extends Controller
 	use UploadImage, UserInfo;
 	public function index()
 	{
-		$user = $this->validateUser(Auth::user());
+		$user = Auth::user()->load('image','roles');
 		$products = Product::where('stock', '>', 0)->get();
 		$roles = Role::all();
 		return view('user.index', compact('user', 'products', 'roles'));

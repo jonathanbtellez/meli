@@ -12,13 +12,12 @@ use App\Http\Requests\Category\CategoryRequest;
 
 class CategoryController extends Controller
 {
-	use UserInfo;
+
 	public function getProducts(Request $request, Category $category)
 	{
-		$user = $this->validateUser(Auth::user());
+		$user = Auth::user()->load('image','roles');
 		$products = Product::where('stock', ">", 0)->get();
 		$categories = Product::where('category_id', $category->id)->where('stock', '>', 0)->with('image')->get();
-
 		return view('category.get-products', compact('user', 'products', 'categories', 'category'));
 	}
 

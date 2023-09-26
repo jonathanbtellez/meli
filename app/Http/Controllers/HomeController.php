@@ -11,7 +11,6 @@ use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
-	use UserInfo;
 	/**
 	 * Show the application dashboard.
 	 *
@@ -19,10 +18,9 @@ class HomeController extends Controller
 	 */
 	public function index()
 	{
-		$user = $this->validateUser(Auth::user());
+		$user = Auth::user()->load('image','roles');
 		$products = Product::where('stock', '>', 0)->get();
 		$categories = Category::with('products')->get();
-
 		return view('home', compact('user', 'products', 'categories'));
 	}
 }

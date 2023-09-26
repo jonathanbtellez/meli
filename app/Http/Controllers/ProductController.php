@@ -15,10 +15,10 @@ use Yajra\DataTables\Facades\DataTables;
 
 class ProductController extends Controller
 {
-	use UploadImage, UserInfo;
+	use UploadImage;
 	public function index()
 	{
-		$user = $this->validateUser(Auth::user());
+		$user = Auth::user()->load('image','roles');
 		$categories = Category::get();
 		$products = Product::where('stock', '>', 0)->get();
 		return view('product.index', compact('user', 'products', 'categories'));

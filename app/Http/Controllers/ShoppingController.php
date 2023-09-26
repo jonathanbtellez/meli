@@ -15,7 +15,7 @@ class ShoppingController extends Controller
 	use UserInfo;
 	public function index()
 	{
-		$user = $this->validateUser(Auth::user());
+		$user = Auth::user()->load('image','roles');
 		$products = Product::where('stock', '>', 0)->with('image')->get();
 		return view('shopping.index', compact('user', 'products'));
 	}
