@@ -1,11 +1,11 @@
-<x-app>
+<x-app title="Register">
     <div id="app">
-        <nav-bar />
+        <nav-bar title="Register" :products="{{ $products }}" />
     </div>
     <div class="container my-3">
         <div class="row justify-content-center">
             <div class="col-md-8">
-                <div class="card">
+                <div class="card bg-white">
                     <div class="card-header">{{ __('Register') }}</div>
 
                     <div class="card-body">
@@ -28,7 +28,7 @@
                                     @enderror
                                 </div>
                             </div>
-							<div class="row mb-3">
+                            <div class="row mb-3">
                                 <label for="last_name"
                                     class="col-md-4 col-form-label text-md-end">{{ __('Last name') }}</label>
 
