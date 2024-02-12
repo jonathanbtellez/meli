@@ -44,6 +44,7 @@ class RegisterController extends Controller
 
 	public function register(UserRequest $request)
 	{
+		dd('asfd');
 
 		$user = new User($request->all());
 		$user->save();

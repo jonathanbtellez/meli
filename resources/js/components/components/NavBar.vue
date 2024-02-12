@@ -38,7 +38,9 @@
 									<div class="image-container">
 										<img class="w-100" :src="user.image.url" alt="avatar">
 									</div>
-									{{ user.full_name }}{{ ' ' }}
+									<div class="ms-2">
+										{{ user.full_name }}
+									</div>
 								</a>
 								<div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
 									<!-- <a class="dropdown-item" href='logout' onclick="event.preventDefault();

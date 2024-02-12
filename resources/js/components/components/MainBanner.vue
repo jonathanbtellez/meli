@@ -7,7 +7,7 @@
 	width: 100%;
 	min-height: 20vh;
 	margin-bottom: .5rem;
-	background-image: url('/storage/project/banner.jpg');
+	background-image: url('https://res.cloudinary.com/dso0xjfh8/image/upload/v1707697300/meli/Banners_web-04_0_idpqxq.png');
 	background-attachment: local;
 	background-repeat: repeat-x;
 	background-size: contain;

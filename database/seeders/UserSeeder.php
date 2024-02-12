@@ -29,7 +29,7 @@ class UserSeeder extends Seeder
 		$users = User::get();
 
 		foreach ($users as $user) {
-			$image = new Image(['url'=>'/storage/images/users/default.png']);
+			$image = new Image(['url'=>'https://res.cloudinary.com/dso0xjfh8/image/upload/v1707697705/meli/456322_kgj76p.webp']);
 			$user->image()->save($image);
 			if($user->id % 2 === 0){
 				$user->assignRole('user');

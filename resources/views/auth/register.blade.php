@@ -1,6 +1,6 @@
 <x-app title="Register">
     <div id="app">
-        <nav-bar title="Register" :products="{{ $products }}" />
+        <nav-bar title="Register" />
     </div>
     <div class="container my-3">
         <div class="row justify-content-center">
