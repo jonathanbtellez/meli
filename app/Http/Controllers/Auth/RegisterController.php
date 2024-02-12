@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Models\User;
-use Illuminate\Support\Str;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\User\UserRequest;
+use App\Http\Requests\Login\RegisterRequest;
+use App\Models\Image;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Auth;
@@ -42,13 +42,13 @@ class RegisterController extends Controller
 		$this->middleware('guest');
 	}
 
-	public function register(UserRequest $request)
+	public function register(RegisterRequest $request)
 	{
-		dd('asfd');
-
 		$user = new User($request->all());
 		$user->save();
-		// $user->assignRole('user');
+		$user->assignRole('user');
+		$image = new Image(['url' => 'https://res.cloudinary.com/dso0xjfh8/image/upload/v1707697705/meli/456322_kgj76p.webp']);
+		$user->image()->save($image);
 		Auth::login($user);
 		return redirect($this->redirectTo);
 	}
